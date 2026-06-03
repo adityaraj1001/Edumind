@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+
+  mongodb:
+    image: mongo
+    container_name: edumind-mongodb
+    ports:
+      - "27017:27017"
+
+  backend:
+    build: ./backend
+    container_name: edumind-backend
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mongodb
+
+  frontend:
+    build: ./frontend
+    container_name: edumind-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
